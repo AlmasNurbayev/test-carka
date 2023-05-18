@@ -1,18 +1,21 @@
 import { logger } from '../../utils/logger';
 import { Request, Response } from 'express';
-import { createUserService } from './user.service';
+import { getUsersService } from './user.service';
 
 export async function createUser(req: Request, resp: Response) {
-    logger.info('modules / user.controller.ts - createUser receive query: ' + JSON.stringify(req.query));
+}
+
+export async function getUsers(req: Request, resp: Response) {
+    logger.info('modules / user.controller.ts - getUsers receive query: ' + JSON.stringify(req.query));
    
-    req.body.role = 'user';
-    const res = await createUserService(req.body);
-    
-    if (res === null) {
-        resp.status(400).send();    
+    const res = await getUsersService();  
+ 
+    if (res) {
+        logger.info('modules / user.controller.ts - getUsers success ended');
+        return resp.status(200).json(res);
     } else {
-        resp.status(200).json(res);
-    }
-    
-    logger.info('modules / user.contrller.ts - createUser ended');
+        logger.error('modules / user.controller.ts - getUsers error ended');
+      return resp.status(400).json({message: 'error'});    
+    }      
+
 }
