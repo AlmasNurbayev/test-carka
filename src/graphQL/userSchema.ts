@@ -3,8 +3,7 @@ import { createUserService, deleteUserService, getUsersService, updateUserServic
 import { userCreateT, userT } from '../modules/user/types';
 import { register } from '../auth/auth.controller';
 import { authResolve } from './userResolve';
-
-
+import { clientCreate, clientQuery } from './clientSchema';
 
 /**
  * Construct a GraphQL schema and define the necessary resolvers.
@@ -191,6 +190,7 @@ export const RootQuery = new GraphQLObjectType({
   description: 'This is the root query which holds all possible READ entrypoints for the GraphQL API',
   fields: () => ({
     users: userQuery,
+    clients: clientQuery
     //note: noteQuery,
   }),
 });
@@ -203,6 +203,7 @@ const RootMutation = new GraphQLObjectType({
     userDelete: userDelete,
     userUpdate: userUpdate,
     auth: auth,
+    clientCreate: clientCreate
   }),
 });
 

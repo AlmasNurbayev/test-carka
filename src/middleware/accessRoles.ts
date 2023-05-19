@@ -5,10 +5,14 @@ type aclT = {
 }[];
 
 export const acl: aclT  = [
+  //
   {type: 'query',     name: 'users',        role: ['user', 'admin'] },
   {type: 'mutation',  name: 'userCreate',   role: ['user', 'admin'] },  
   {type: 'mutation',  name: 'userDelete',   role: ['admin']         },  
   {type: 'mutation',  name: 'userUpdate',   role: ['user','admin']  },  
   {type: 'mutation',  name: 'auth',         role: ['user','admin']  },  
+  //
+  {type: 'mutation',  name: 'clientCreate', role: ['user', 'admin'] },  
+  {type: 'query',     name: 'clients',      role: ['user', 'admin'] },
 ]
   
