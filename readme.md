@@ -33,6 +33,15 @@
 - авторизация возвращает JWT на 24 часа
 - по умолчанию новые пользователи имеют роль user. 
 - доступность запросов для разных ролей регулируется в модуле src/middleware/accessRoles.ts. Для этого в middleware проверяются 2 первых слова из запроса и проверяется на сопоставление с ACL-объектом
+```
+export const acl: aclT  = [
+  {type: 'query',     name: 'users',        role: ['user', 'admin'] },
+  {type: 'mutation',  name: 'userCreate',   role: ['user', 'admin'] },  
+  {type: 'mutation',  name: 'userDelete',   role: ['admin']         },  
+  {type: 'mutation',  name: 'userUpdate',   role: ['user','admin']  },  
+  {type: 'mutation',  name: 'auth',         role: ['user','admin']  },  
+]
+```
 - в некоторых случаях (но не во всех) в ответе возвращаются осмысленные ошибки с кодом 200  
             
 ## Используемый стек:
