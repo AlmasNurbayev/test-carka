@@ -18,7 +18,7 @@ function generateToken(id: number, email: string, role: string) {
 export async function authResolve(body: {email: string, password: string}): Promise<{token?: string, error? :string}> {
   logger.info('graphQL / userResolve.ts - auth receive body: ' + JSON.stringify(body));
 
-  console.log('body', body);
+  //console.log('body', body);
   
   
   const user = await authUserService(body);

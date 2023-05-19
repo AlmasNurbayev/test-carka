@@ -1,0 +1,282 @@
+{
+	"info": {
+		"_postman_id": "82e4f563-28e1-4ce9-8bb6-a189e3f30ba8",
+		"name": "test-carka",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25167682"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"test\",\r\n    \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://45.146.167.130:3003/api/auth",
+					"protocol": "http",
+					"host": [
+						"45",
+						"146",
+						"167",
+						"130"
+					],
+					"port": "3003",
+					"path": [
+						"api",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"test3\",\r\n    \"password\": \"test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://45.146.167.130:3003/api/register",
+					"protocol": "http",
+					"host": [
+						"45",
+						"146",
+						"167",
+						"130"
+					],
+					"port": "3003",
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user - get all",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "graphQL - user query",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsImVtYWlsIjoidGVzdCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjg0NDcwNjIyLCJleHAiOjE2ODQ1NTcwMjJ9.WOnZfviwUQiY3gaPYRNZgwbylY4uKia9D5tb6ykx8y8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query { users  {\r\n    id \r\n    email\r\n    create_date\r\n    password\r\n  } \r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://45.146.167.130:3003/api/graphqL",
+					"protocol": "http",
+					"host": [
+						"45",
+						"146",
+						"167",
+						"130"
+					],
+					"port": "3003",
+					"path": [
+						"api",
+						"graphqL"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "graphQL - user create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsImVtYWlsIjoidGVzdCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjg0NDcwNjIyLCJleHAiOjE2ODQ1NTcwMjJ9.WOnZfviwUQiY3gaPYRNZgwbylY4uKia9D5tb6ykx8y8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": " mutation { userCreate\r\n        ( email: \"test3\",\r\n        password: \"123456\" ) \r\n        { id, email, password }\r\n }\r\n\r\n  \r\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://45.146.167.130:3003/api/graphqL",
+					"protocol": "http",
+					"host": [
+						"45",
+						"146",
+						"167",
+						"130"
+					],
+					"port": "3003",
+					"path": [
+						"api",
+						"graphqL"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "graphQL - user update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsImVtYWlsIjoidGVzdCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjg0NDcwNjIyLCJleHAiOjE2ODQ1NTcwMjJ9.WOnZfviwUQiY3gaPYRNZgwbylY4uKia9D5tb6ykx8y8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": " mutation { userUpdate  \r\n        (email: \"test3\",\r\n        password: \"1234567\",\r\n        name: \"Name2\",\r\n         ) \r\n        { id, email, password, name }\r\n }\r\n\r\n  \r\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://45.146.167.130:3003/api/graphqL",
+					"protocol": "http",
+					"host": [
+						"45",
+						"146",
+						"167",
+						"130"
+					],
+					"port": "3003",
+					"path": [
+						"api",
+						"graphqL"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "graphQL - user delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsImVtYWlsIjoidGVzdCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjg0NDcwNjIyLCJleHAiOjE2ODQ1NTcwMjJ9.WOnZfviwUQiY3gaPYRNZgwbylY4uKia9D5tb6ykx8y8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": " mutation { userCreate\r\n        ( email: \"test3\",\r\n        password: \"123456\" ) \r\n        { id, email }\r\n }\r\n\r\n  \r\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://45.146.167.130:3003/api/graphqL",
+					"protocol": "http",
+					"host": [
+						"45",
+						"146",
+						"167",
+						"130"
+					],
+					"port": "3003",
+					"path": [
+						"api",
+						"graphqL"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "graphQL - user auth",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsImVtYWlsIjoidGVzdCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjg0NDcwNjIyLCJleHAiOjE2ODQ1NTcwMjJ9.WOnZfviwUQiY3gaPYRNZgwbylY4uKia9D5tb6ykx8y8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": " mutation { auth\r\n        ( email: \"test3\",\r\n        password: \"123456\" ) \r\n        { token }\r\n }\r\n\r\n  \r\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://45.146.167.130:3003/api/graphqL",
+					"protocol": "http",
+					"host": [
+						"45",
+						"146",
+						"167",
+						"130"
+					],
+					"port": "3003",
+					"path": [
+						"api",
+						"graphqL"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

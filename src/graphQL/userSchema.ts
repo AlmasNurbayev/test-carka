@@ -144,7 +144,7 @@ const auth = {
   },
   resolve: async (value: any, args: {email: string, password: string}) => {
     const res = await authResolve(args);
-    console.log('res', res);
+    //console.log('res', res);
     if (!res.error) {
       return res;
     } else {
