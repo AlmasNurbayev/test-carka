@@ -38,9 +38,12 @@ export async function authUserService(body: Prisma.userWhereUniqueInput) {
   }  
 }
 
-export async function getUsersService() {
+export async function getUsersService(where?: any) {
+  logger.info('modules/user.service.ts - getUsersService start ' + JSON.stringify(where));
+  console.log('where',where);
+  
   try {
-    let res = await prismaI.user.findMany();
+    let res = await prismaI.user.findMany({where: where});
     return res;
   } catch (error) {
     console.log('modules/user.service.js - getUsersService ' + error);

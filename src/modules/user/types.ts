@@ -12,3 +12,8 @@ export type userT = {
   create_date?: Date,
   changed_date?: Date
 }
+
+export type userCreateT = {
+  email: string,
+  password: string,
+}
