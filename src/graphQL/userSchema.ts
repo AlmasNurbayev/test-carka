@@ -1,7 +1,8 @@
 import { GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLSchema, GraphQLString } from 'graphql';
-import { createUserService, getUsersService } from '../modules/user/user.service';
-import { userT } from '../modules/user/types';
+import { authUserService, createUserService, deleteUserService, getUsersService } from '../modules/user/user.service';
+import { userCreateT, userT } from '../modules/user/types';
 import { register } from '../auth/auth.controller';
+import { authResolve } from './userResolve';
 
 
 
@@ -40,10 +41,18 @@ export const UserType = new GraphQLObjectType({
       type: GraphQLString,
       resolve: (user) => user.email,
     },
+    password: {
+      type: GraphQLString,
+      resolve: (user) => user.password,
+    },     
     role: {
       type: GraphQLString,
       resolve: (user) => user.role,
     },
+    token: {
+      type: GraphQLString,
+      //resolve: (user) => authResolve({email: user.email, password: user.password}),
+    },    
     create_date: {
       type: GraphQLString,
       resolve: (user) => user.create_date,
@@ -72,19 +81,12 @@ const userQuery = {
       type: GraphQLString,
     },
     role: {
-      name: 'notes',
+      name: 'role',
       type: GraphQLString,
     },
-    create_date: {
-      name: 'create_date',
-      type: GraphQLString,
-    },
-    changed_date: {
-      name: 'changed_date',
-      type: GraphQLString,
-    },
+
   },
-  resolve: (user: any, args: userT) => getUsersService(args),
+  resolve: (user: any, args: userT) => getUsersService({where: args}),
 };
 
 const userCreate = {
@@ -100,8 +102,42 @@ const userCreate = {
       type: new GraphQLNonNull(GraphQLString),
     },
   },
-  resolve: (value: any, args: userT) => createUserService(args),
-  
+  resolve: (value: any, args: userCreateT) => {
+    args.role = 'user';
+    return createUserService(args);
+  },
+};
+
+const userDelete = {
+  type: UserType,
+  description: 'The mutation delete user by id',
+  args: {
+    id: {
+      name: 'id',
+      type: new GraphQLNonNull(GraphQLInt),
+    },
+  },
+  resolve: (value: any, args: {id: number}) => {
+    return deleteUserService({where: args});
+  },
+};
+
+const auth = {
+  type: UserType,
+  description: 'The mutation auth user by email, password. Return token',
+  args: {
+    email: {
+      name: 'email',
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    password: {
+      name: 'password',
+      type: new GraphQLNonNull(GraphQLString),
+    },    
+  },
+  resolve: (value: any, args: {email: string, password: string}) => {
+    return authResolve(args);
+  },
 };
 
 export const RootQuery = new GraphQLObjectType({
@@ -113,6 +149,17 @@ export const RootQuery = new GraphQLObjectType({
   }),
 });
 
+const RootMutation = new GraphQLObjectType({
+  name: 'rootMutation',
+  description: 'This is the root mutation which holds all possible WRITE entrypoints for the GraphQL API',
+  fields: () => ({
+    userCreate: userCreate,
+    userDelete: userDelete,
+    auth: auth,
+  }),
+});
+
 export const rootSchema: GraphQLSchema = new GraphQLSchema({
   query: RootQuery,
+  mutation: RootMutation,  
 });

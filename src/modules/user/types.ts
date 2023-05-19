@@ -16,4 +16,5 @@ export type userT = {
 export type userCreateT = {
   email: string,
   password: string,
+  role: string,
 }
