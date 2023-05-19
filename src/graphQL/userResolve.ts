@@ -15,7 +15,7 @@ function generateToken(id: number, email: string, role: string) {
     return jwt.sign(payload, secret, { expiresIn: '24h'});
 }
 
-export async function authResolve(body: {email: string, password: string}) {
+export async function authResolve(body: {email: string, password: string}): Promise<{token?: string, error? :string}> {
   logger.info('graphQL / userResolve.ts - auth receive body: ' + JSON.stringify(body));
 
   console.log('body', body);
@@ -24,12 +24,12 @@ export async function authResolve(body: {email: string, password: string}) {
   const user = await authUserService(body);
   if (!user) {
     logger.error('graphQL / userResolve.ts - not correct');
-    return null;    
+    return {error: 'not found user'};    
   }
   const comparePass = bcrypt.compareSync(body.password, user.password); 
   if (!comparePass) {
     logger.error('graphQL / userResolve.ts - not correct');
-    return null; 
+    return {error: 'not correct password'};    
   }
 
   const token = generateToken(user.id, user.email, user.role);

@@ -1,9 +1,9 @@
 import { authUserService, createUserService } from "../modules/user/user.service";
 import { logger } from "../utils/logger";
 import { Request, Response } from 'express';
-import bcrypt from 'bcrypt';
 import { validationResult } from "express-validator";
 import  jwt  from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 
 function generateToken(id: number, email: string, role: string) {
     const payload = {id: id, email: email, role: role};
@@ -47,10 +47,6 @@ export async function register(req: Request, resp: Response) {
     if (!errorsVal.isEmpty()) {
       return resp.status(400).json({message: 'errors at registration', errorsVal});   
     }
-
-
-    req.body.role = 'user';
-    req.body.password = bcrypt.hashSync(req.body.password, 8)
 
     const res = await createUserService(req.body);  
         

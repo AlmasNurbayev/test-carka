@@ -4,6 +4,7 @@ import cors from 'cors';
 import http from 'http';
 import { initRouterApi } from './router/router';
 
+
 dotenv.config();
 
 const port = process.env.PORT;
@@ -13,7 +14,7 @@ app.use(express.json())
 app.use('/api', initRouterApi());
 
 
-
+// пока без SSL
 // let key = fs.readFileSync('./ssl/private.key');
 // let cert = fs.readFileSync('./ssl/certificate.crt');
 // let ca = fs.readFileSync('./ssl/ca_bundle.crt');

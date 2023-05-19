@@ -21,7 +21,7 @@ export function initRouterApi() {
     , register);
 
   router.get('/user', [checkRole] ,getUsers);
-  router.all('/graphql', checkAuth, createHandler({ schema: rootSchema }));
+  router.all('/graphql', checkAuth , createHandler({ schema: rootSchema }));
   
   router.use('/api-docs', swaggerUi.serve);
   router.get('/api-docs', swaggerUi.setup(swaggerSchema.schema));

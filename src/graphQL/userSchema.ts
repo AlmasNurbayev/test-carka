@@ -1,5 +1,5 @@
 import { GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLObjectType, GraphQLSchema, GraphQLString } from 'graphql';
-import { authUserService, createUserService, deleteUserService, getUsersService } from '../modules/user/user.service';
+import { createUserService, deleteUserService, getUsersService, updateUserService } from '../modules/user/user.service';
 import { userCreateT, userT } from '../modules/user/types';
 import { register } from '../auth/auth.controller';
 import { authResolve } from './userResolve';
@@ -35,7 +35,7 @@ export const UserType = new GraphQLObjectType({
     },
     name: {
       type: GraphQLString,
-      resolve: (user) => user.username,
+      resolve: (user) => user.name,
     },
     email: {
       type: GraphQLString,
@@ -117,8 +117,15 @@ const userDelete = {
       type: new GraphQLNonNull(GraphQLInt),
     },
   },
-  resolve: (value: any, args: {id: number}) => {
-    return deleteUserService({where: args});
+  resolve: async (value: any, args: {id: number}) => {
+    const res: any = await deleteUserService({where: args}); // техдолг - убрать any
+    if (res === undefined) {
+      throw new Error('unknown error');
+    } else if (res.hasOwnProperty('error')) {
+      throw new Error(res.error);
+    } else {
+      return res;
+    }    
   },
 };
 
@@ -135,10 +142,44 @@ const auth = {
       type: new GraphQLNonNull(GraphQLString),
     },    
   },
-  resolve: (value: any, args: {email: string, password: string}) => {
-    return authResolve(args);
+  resolve: async (value: any, args: {email: string, password: string}) => {
+    const res = await authResolve(args);
+    console.log('res', res);
+    if (!res.error) {
+      return res;
+    } else {
+      throw new Error(res.error);
+    }
   },
 };
+
+const userUpdate = {
+  type: UserType,
+  description: 'The mutation that allows you to update user (exclude id, email, role)',
+  args: {
+    email: {
+      name: 'email',
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    password: {
+      name: 'password',
+      type: GraphQLString,
+    },
+    name: {
+      name: 'name',
+      type: GraphQLString,
+    }, 
+  },  
+  resolve: (value: any, args: userCreateT) => {
+    //args.role = 'user';
+    const res: any = updateUserService(args); // техдолг разобраться с типами
+    if (!res.error) {
+      return res;
+    } else {
+      throw new Error(res.error);
+    }    
+  },  
+}
 
 export const RootQuery = new GraphQLObjectType({
   name: 'rootQuery',
@@ -155,6 +196,7 @@ const RootMutation = new GraphQLObjectType({
   fields: () => ({
     userCreate: userCreate,
     userDelete: userDelete,
+    userUpdate: userUpdate,
     auth: auth,
   }),
 });
