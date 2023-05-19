@@ -10,7 +10,8 @@
 ## GraphQL:
  - ендпойнт - POST /api/graphqL. Реализован пока только 1 модуль User
  - Query - 1 запрос users. Например:
- "query { users  {
+ ```
+ query { users  {
     id 
     email
     create_date
@@ -18,15 +19,17 @@
     role
     name
   } 
-}" 
+}
+``` 
  - Mutations - запросы auth, userCreate, userDelete, userUpdate. Например:
-"
+```
  mutation { userCreate 
         (email: "test3",
         password: "123456") 
         { id, email, password }
  }
-"
+```
+
 - авторизация возвращает JWT на 24 часа
 - по умолчанию новые пользователи имеют роль user. 
 - доступность запросов для разных ролей регулируется в модуле src/middleware/accessRoles.ts. Для этого в middleware проверяются 2 первых слова из запроса и проверяется на сопоставление с ACL-объектом
