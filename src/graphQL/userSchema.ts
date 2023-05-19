@@ -102,9 +102,14 @@ const userCreate = {
       type: new GraphQLNonNull(GraphQLString),
     },
   },
-  resolve: (value: any, args: userCreateT) => {
+  resolve: async (value: any, args: userCreateT) => {
     args.role = 'user';
-    return createUserService(args);
+    const res: any = await createUserService(args);
+    if (!res.error) {
+      return res;
+    } else {
+      throw new Error(res.error);
+    }    
   },
 };
 
@@ -170,10 +175,10 @@ const userUpdate = {
       type: GraphQLString,
     }, 
   },  
-  resolve: (value: any, args: userCreateT) => {
+  resolve: async (value: any, args: userCreateT) => {
     //args.role = 'user';
-    const res: any = updateUserService(args); // техдолг разобраться с типами
-    if (!res.error) {
+    const res: any = await updateUserService(args); // техдолг разобраться с типами
+    if (!res.hasOwnProperty('error')) {
       return res;
     } else {
       throw new Error(res.error);

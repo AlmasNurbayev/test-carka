@@ -42,16 +42,14 @@ export async function updateUserService(body: Prisma.userUpdateInput) {
     );
     return res;
   } catch (error) {
-    let error_res: undefined | null = undefined;
-    if (error instanceof Prisma.PrismaClientKnownRequestError) {
-      if (error.code === 'P2002') {
+    //let error_res: undefined | null = undefined;
+      if (String(error).includes('Record to update not found')) {
           return {error: 'not found user'};  
       }
+      console.log('modules/user.service.js - updateUserService ' + error);
+      logger.error('modules/user.service.js - updateUserService ' + error);
+      return {error: String(error)};
     }
-    console.log('modules/user.service.js - updateUserService ' + error);
-    logger.error('modules/user.service.js - updateUserService ' + error);
-    return error_res
-  }
 }
 
 export async function authUserService(body: Prisma.userWhereUniqueInput) {
