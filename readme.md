@@ -1,5 +1,6 @@
 # test-carka
-Тестовое задание для graphQL в связке с Express
+Тестовое задание для graphQL в связке с Express.
+Исходное задание: [https://github.com/LuciusFaraday/tsarka-node-task]
 
 ## restAPI:
  - 3 restAPI ендпойнта (POST /api/auth, POST api/register, GET api/user)
@@ -40,7 +41,7 @@
  - в корне репозитория размещена коллекция запросов: test-carka.postman_collection.json 
 
 ## Что не сделано:
-- рефакторинг userSchema.ts
+- рефакторинг userSchema.ts, разделение с наскока не получилось. При экспорте/импорте частей схемы возникают ошибки 
 - Swagger-схема для RestAPI
 - в некоторых местах есть типы any
 - вынести типы в отдельные модули
