@@ -5,7 +5,7 @@ import { validationResult } from "express-validator";
 import  jwt  from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
-function generateToken(id: number, email: string, role: string) {
+export function generateToken(id: number, email: string, role: string) {
     const payload = {id: id, email: email, role: role};
     let secret;
     if (process.env.jwtSecret) {

@@ -61,8 +61,8 @@ export async function authUserService(body: Prisma.userWhereUniqueInput) {
     );
     return res;
   } catch (error) {
-    console.log('modules/user.service.js - createUserService ' + error);
-    logger.error('modules/user.service.js - createUserService ' + error);
+    console.log('modules/user.service.js - authUserService ' + error);
+    logger.error('modules/user.service.js - authUserService ' + error);
   }  
 }
 
