@@ -13,6 +13,8 @@ export const acl: aclT  = [
   {type: 'mutation',  name: 'auth',         role: ['user','admin']  },  
   // client
   {type: 'mutation',  name: 'clientCreate', role: ['user', 'admin'] },  
+  {type: 'mutation',  name: 'clientUpdate', role: ['user', 'admin'] },  
+  {type: 'mutation',  name: 'clientDelete', role: ['user', 'admin'] },  
   {type: 'query',     name: 'clients',      role: ['user', 'admin'] },
 ]
   

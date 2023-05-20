@@ -3,7 +3,7 @@ import { createUserService, deleteUserService, getUsersService, updateUserServic
 import { userCreateT, userT } from '../modules/user/types';
 import { register } from '../auth/auth.controller';
 import { authResolve } from './userResolve';
-import { clientCreate, clientQuery } from './clientSchema';
+import { clientCreate, clientDelete, clientQuery, clientUpdate } from './clientSchema';
 
 /**
  * Construct a GraphQL schema and define the necessary resolvers.
@@ -203,7 +203,9 @@ const RootMutation = new GraphQLObjectType({
     userDelete: userDelete,
     userUpdate: userUpdate,
     auth: auth,
-    clientCreate: clientCreate
+    clientCreate: clientCreate,
+    clientUpdate: clientUpdate,
+    clientDelete: clientDelete,
   }),
 });
 

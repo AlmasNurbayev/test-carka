@@ -21,7 +21,7 @@
   } 
 }
 ``` 
- - Mutations - запросы auth, userCreate, userDelete, userUpdate. Например:
+ - Mutations - запросы auth, userCreate, userDelete, userUpdate (список обновляется). Например:
 ```
  mutation { userCreate 
         (email: "test3",
