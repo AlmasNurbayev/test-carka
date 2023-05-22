@@ -21,7 +21,7 @@
   } 
 }
 ``` 
- - Mutations - запросы auth, userCreate, userDelete, userUpdate (список обновляется). Например:
+ - Mutations - запросы auth, userCreate, userDelete, userUpdate и аналогичные для таблицы Client (список обновляется). Например:
 ```
  mutation { userCreate 
         (email: "test3",
@@ -30,8 +30,8 @@
  }
 ```
 
-- авторизация возвращает JWT на 24 часа
-- по умолчанию новые пользователи имеют роль user. 
+- авторизация возвращает JWT на 24 часа. Для GraphQL без авторзации доступен только 1 маршрут (createUser, регистрация пользователя), см. роль 'any' в ACL (accessRoles.ts).
+- по умолчанию новые пользователи имеют роль user 
 - доступность запросов для разных ролей регулируется в модуле src/middleware/accessRoles.ts. Для этого в middleware проверяются 2 первых слова из запроса и проверяется на сопоставление с ACL-объектом
 ```
 export const acl: aclT  = [
