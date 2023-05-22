@@ -10,9 +10,32 @@ interface RequestWithUserRole extends Request {
 
 export function checkAuth(req: RequestWithUserRole, resp: Response, next: NextFunction) {
   if (req.method === 'OPTIONS') {
-    next();
+    return next();
   }
 
+  // проверка запроса на разрешение any в ACL листе - не требуется токен
+  const arr1 = req.body.query.split(/[{(]/);
+  if (arr1.length < 2) {
+    return resp.status(403).json({ message: 'not correct query - missing query/mutation' })
+  } else {
+    const typeQuery = arr1[0].replaceAll(/[\W_]+/g, "").toLowerCase();
+    const nameQuery = arr1[1].replaceAll(/[\W_]+/g, "").toLowerCase();
+    console.log(typeQuery, nameQuery);
+
+    const res1 = acl.filter((el) => {
+      let roleFind = el.role.includes('any');
+      if (el.type.toLowerCase() === typeQuery && el.name.toLowerCase() === nameQuery && roleFind === true) {
+        console.log('return next', el.type, el.name);
+        return true;
+        //return true;
+      } return false;
+    })
+    if (res1.length > 0) {
+      return next();
+    }
+  }
+
+  // проверка прав если нужна авторизация
   try {
     const token = req.headers?.authorization?.split(' ')[1];
     if (!token) {
@@ -34,9 +57,9 @@ export function checkAuth(req: RequestWithUserRole, resp: Response, next: NextFu
     if (arr.length < 2) {
       return resp.status(403).json({ message: 'not correct query - missing query/mutation' })
     } else {
-      const typeQuery = arr[0].replaceAll(/[\W_]+/g,"").toLowerCase();
-      const nameQuery = arr[1].replaceAll(/[\W_]+/g,"").toLowerCase();
-      
+      const typeQuery = arr[0].replaceAll(/[\W_]+/g, "").toLowerCase();
+      const nameQuery = arr[1].replaceAll(/[\W_]+/g, "").toLowerCase();
+
       const res = acl.filter((el) => {
         let roleFind = el.role.includes(role);
         if (el.type.toLowerCase() === typeQuery && el.name.toLowerCase() === nameQuery && roleFind === true) {
@@ -50,13 +73,12 @@ export function checkAuth(req: RequestWithUserRole, resp: Response, next: NextFu
         return resp.status(403).json({ message: 'access denied' })
       }
     }
-
     next();
 
-
   } catch (error) {
-    return resp.status(403).json({ message: 'not authorized user' })
+    console.log(error);
+    logger.error('checkAuth - try error ' + error);
+    return resp.status(403).json({ message: 'authorization check error' })
   }
-
 
 }

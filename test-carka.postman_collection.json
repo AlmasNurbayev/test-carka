@@ -216,7 +216,7 @@
 				"body": {
 					"mode": "graphql",
 					"graphql": {
-						"query": " mutation { userCreate\r\n        ( email: \"test3\",\r\n        password: \"123456\" ) \r\n        { id, email }\r\n }\r\n\r\n  \r\n",
+						"query": " mutation { userDelete\r\n        ( id: 28) \r\n        { id, email }\r\n }\r\n\r\n  \r\n",
 						"variables": ""
 					}
 				},
@@ -256,7 +256,167 @@
 				"body": {
 					"mode": "graphql",
 					"graphql": {
-						"query": " mutation { auth\r\n        ( email: \"test3\",\r\n        password: \"123456\" ) \r\n        { token }\r\n }\r\n\r\n  \r\n",
+						"query": " mutation { auth\r\n        ( email: \"test3\",\r\n        password: \"1234567\" ) \r\n        { token }\r\n }\r\n\r\n  \r\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://45.146.167.130:3003/api/graphqL",
+					"protocol": "http",
+					"host": [
+						"45",
+						"146",
+						"167",
+						"130"
+					],
+					"port": "3003",
+					"path": [
+						"api",
+						"graphqL"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "graphQL - client query",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsImVtYWlsIjoidGVzdCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjg0NTYxODc1LCJleHAiOjE2ODQ2NDgyNzV9.grZeCUFVZ6L_BUVCGMGxnTYUfYvzcJfznsHJ7fv99Mg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query { clients \r\n     {\r\n    id \r\n    name\r\n    email\r\n    phone\r\n    city\r\n    district\r\n    wish    \r\n    create_date\r\n  } \r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://45.146.167.130:3003/api/graphqL",
+					"protocol": "http",
+					"host": [
+						"45",
+						"146",
+						"167",
+						"130"
+					],
+					"port": "3003",
+					"path": [
+						"api",
+						"graphqL"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "graphQL - client create",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsImVtYWlsIjoidGVzdCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjg0NTYxODc1LCJleHAiOjE2ODQ2NDgyNzV9.grZeCUFVZ6L_BUVCGMGxnTYUfYvzcJfznsHJ7fv99Mg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": " mutation { clientCreate\r\n        ( email: \"test4\",\r\n        phone: \"+7 701 513 00 01\"\r\n        city: \"astana\" ) \r\n        { id, email, phone, city }\r\n }\r\n\r\n  \r\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://45.146.167.130:3003/api/graphqL",
+					"protocol": "http",
+					"host": [
+						"45",
+						"146",
+						"167",
+						"130"
+					],
+					"port": "3003",
+					"path": [
+						"api",
+						"graphqL"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "graphQL - client update",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsImVtYWlsIjoidGVzdCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjg0NTYxODc1LCJleHAiOjE2ODQ2NDgyNzV9.grZeCUFVZ6L_BUVCGMGxnTYUfYvzcJfznsHJ7fv99Mg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": " mutation { clientUpdate\r\n        ( email: \"test3\",\r\n        phone: \"+7 701 513 00 00\"\r\n        city: \"astana\"\r\n        wish: \"cool iphone\" ) \r\n        { id, email, phone, city, wish }\r\n }\r\n\r\n  \r\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://45.146.167.130:3003/api/graphqL",
+					"protocol": "http",
+					"host": [
+						"45",
+						"146",
+						"167",
+						"130"
+					],
+					"port": "3003",
+					"path": [
+						"api",
+						"graphqL"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "graphQL - client delete",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsImVtYWlsIjoidGVzdCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjg0NTYxODc1LCJleHAiOjE2ODQ2NDgyNzV9.grZeCUFVZ6L_BUVCGMGxnTYUfYvzcJfznsHJ7fv99Mg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": " mutation { clientDelete\r\n        ( id: 3) \r\n        { id, email, phone, city }\r\n }\r\n\r\n  \r\n",
 						"variables": ""
 					}
 				},

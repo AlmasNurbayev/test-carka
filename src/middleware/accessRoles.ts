@@ -7,7 +7,7 @@ type aclT = {
 export const acl: aclT  = [
   // user
   {type: 'query',     name: 'users',        role: ['user', 'admin'] },
-  {type: 'mutation',  name: 'userCreate',   role: ['user', 'admin'] },  
+  {type: 'mutation',  name: 'userCreate',   role: ['any'] },  
   {type: 'mutation',  name: 'userDelete',   role: ['admin']         },  
   {type: 'mutation',  name: 'userUpdate',   role: ['user','admin']  },  
   {type: 'mutation',  name: 'auth',         role: ['user','admin']  },  
